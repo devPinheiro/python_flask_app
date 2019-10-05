@@ -19,5 +19,15 @@ def index():
   person = Person.query.first()
   return 'Hello ' + person.name
 
+@ap.route('/todo')
+def todo():
+   return render_template('index.html', data=[{
+    'description': 'Todo 1'
+  }, {
+    'description': 'Todo 2'
+  }, {
+    'description': 'Todo 3'
+  }])
+
 if __name__ == '__main__':
     app.run()

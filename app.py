@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -19,7 +19,7 @@ def index():
   person = Person.query.first()
   return 'Hello ' + person.name
 
-@ap.route('/todo')
+@app.route('/todo')
 def todo():
    return render_template('index.html', data=[{
     'description': 'Todo 1'

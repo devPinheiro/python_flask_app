@@ -5,6 +5,9 @@
       #error {
         display: none;
       }
+      #todos{
+        list-style: none;
+      }
     </style>
   </head>
   <body>
@@ -15,10 +18,60 @@
     </form>
     <ul id="todos">
       {% for d in data %}
-      <li>{{ d.description }}</li>
+      <li>
+        
+        <input type="checkbox" data-id="{{ d.id }}" class="check-completed" {% if d.completed %} checked {% endif %} >
+        
+        {{ d.description }}
+
+        <span class="delete-todo" id="todo" data-id="{{ d.id }}">X</span>
+      
+      </li>
       {% endfor %}
     </ul>
     <script>
+
+      const todoItems = document.querySelectorAll('.delete-todo');
+      todoItems.forEach((todoItem)=>{
+       todoItem.onclick = e => {
+      
+          const todoId = e.target.dataset['id'];
+        
+          fetch('/todos/' + todoId, {
+            method: 'DELETE'
+          })
+          .then(function() {
+            document.getElementById('error').className = 'hidden';
+          })
+          .catch(function() {
+            document.getElementById('error').className = '';
+          })
+      }
+    });
+
+      const checkboxes = document.querySelectorAll('.check-completed');
+      checkboxes.forEach((item)=>{
+        item.onchange = e => {
+          const completed = e.target.checked;
+          const todoId = e.target.dataset['id'];
+          console.log(completed)
+          fetch('/todos/' + todoId + '/set-completed', {
+            method: 'POST',
+            body: JSON.stringify({
+              'completed': completed
+            }),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+          .then(function() {
+            document.getElementById('error').className = 'hidden';
+          })
+          .catch(function() {
+            document.getElementById('error').className = '';
+          })
+        }
+      })
       const descInput = document.getElementById('description');
       document.getElementById('form').onsubmit = function(e) {
         e.preventDefault();

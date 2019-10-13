@@ -73,8 +73,14 @@ class Artist(db.Model):
     seeking_description = db.Column(db.String(500))
     # TODO: implement any missing fields, as a database migration using Flask-Migrate
 
-
-
+# TODO Implement Show and Artist models, and complete all model relationships and properties, as a database migration.
+class Show(db.models):
+  __tablename__ = 'Show'
+  id = db.Column(db.Integer, primary_key=True)
+  name = db.Column(db.String)
+  city = db.Column(db.String(120))
+  genres = db.Column(db.String(120))
+  state = db.Column(db.String(120))
 
 #----------------------------------------------------------------------------#
 # Filters.

@@ -232,6 +232,14 @@ def create_venue_form():
 @app.route('/venues/create', methods=['POST'])
 def create_venue_submission():
   # TODO: insert form data as a new Venue record in the db, instead
+  name = request.form['name']
+  city = request.form['city']
+  state = request.form['state']
+  phone = request.form['phone']
+  genres = request.form['genres']
+  artists = Artist(name=name, city=city, state=state, phone=phone, genres=genres)
+  db.session.add(artists)
+  db.session.commit()
   # TODO: modify data to be the data object returned from db insertion
 
   # on successful db insert, flash success
@@ -437,7 +445,7 @@ def create_artist_submission():
   # TODO: modify data to be the data object returned from db insertion
 
   # on successful db insert, flash success
-  flash('Artist ' + request.form['name'] + ' was successfully listed!')
+  flash('Artist ' + request.form['name'] + 'from '+ request.form['state']+ ' was successfully listed!')
   # TODO: on unsuccessful db insert, flash an error instead.
   # e.g., flash('An error occurred. Artist ' + data.name + ' could not be listed.')
   return render_template('pages/home.html')

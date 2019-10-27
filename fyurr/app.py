@@ -114,7 +114,10 @@ def venues():
       "id": 1,
       "name": "The Musical Hop",
       "num_upcoming_shows": 0,
-    }, {
+    }, 
+    {
+    {
+     {
       "id": 3,
       "name": "Park Square Live Music & Coffee",
       "num_upcoming_shows": 1,

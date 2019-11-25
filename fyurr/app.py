@@ -18,7 +18,8 @@ from flask_wtf import Form
 
 from forms import *
 from db import db
-from models import *
+from models.utils import *
+from models.venues import *
 #----------------------------------------------------------------------------#
 # App Config.
 #----------------------------------------------------------------------------#
